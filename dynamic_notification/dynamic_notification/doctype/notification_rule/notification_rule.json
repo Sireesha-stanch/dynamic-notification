@@ -1,0 +1,251 @@
+{
+ "actions": [],
+ "autoname": "field:rule_name",
+ "creation": "2026-11-05 10:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "rule_name",
+  "enabled",
+  "column_break_basics",
+  "document_type",
+  "date_field",
+  "docstatus_filter",
+  "conditions_html",
+  "conditions",
+  "is_submittable",
+  "when_section",
+  "reminders",
+  "recipients_section",
+  "recipients",
+  "channels_section",
+  "send_email",
+  "column_break_channels",
+  "send_system_notification",
+  "message_section",
+  "subject",
+  "message",
+  "insert_field",
+  "status_section",
+  "next_run",
+  "column_break_status",
+  "last_run",
+  "last_status"
+ ],
+ "fields": [
+  {
+   "fieldname": "rule_name",
+   "fieldtype": "Data",
+   "label": "Notification Name",
+   "reqd": 1,
+   "set_only_once": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "column_break_basics",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Any DocType you have read access to, such as Employee, Sales Invoice or Quotation.",
+   "fieldname": "document_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "DocType",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "description": "Needed by reminders that count from a date in the document.",
+   "fieldname": "date_field",
+   "fieldtype": "Select",
+   "label": "Date Field"
+  },
+  {
+   "default": "All Except Cancelled",
+   "depends_on": "eval:doc.is_submittable",
+   "fieldname": "docstatus_filter",
+   "fieldtype": "Select",
+   "label": "Documents",
+   "options": "All Except Cancelled\nSubmitted Only\nDraft Only\nAll"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_submittable",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is Submittable",
+   "read_only": 1
+  },
+  {
+   "description": "Add one row per reminder: for example 30 days before, 15 days before and on the date.",
+   "fieldname": "when_section",
+   "fieldtype": "Section Break",
+   "label": "When to Notify"
+  },
+  {
+   "fieldname": "reminders",
+   "fieldtype": "Table",
+   "label": "Reminders",
+   "options": "Notification Schedule"
+  },
+  {
+   "fieldname": "conditions_html",
+   "fieldtype": "HTML",
+   "label": "Conditions"
+  },
+  {
+   "fieldname": "conditions",
+   "fieldtype": "Code",
+   "hidden": 1,
+   "label": "Conditions JSON",
+   "options": "JSON"
+  },
+  {
+   "fieldname": "recipients_section",
+   "fieldtype": "Section Break",
+   "label": "Who to Notify"
+  },
+  {
+   "fieldname": "recipients",
+   "fieldtype": "Table",
+   "label": "Recipients",
+   "options": "Notification Rule Recipient"
+  },
+  {
+   "fieldname": "channels_section",
+   "fieldtype": "Section Break",
+   "label": "How to Notify"
+  },
+  {
+   "default": "1",
+   "fieldname": "send_email",
+   "fieldtype": "Check",
+   "label": "Email"
+  },
+  {
+   "fieldname": "column_break_channels",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "description": "Appears under the bell icon of the recipient's ERPNext account.",
+   "fieldname": "send_system_notification",
+   "fieldtype": "Check",
+   "label": "System Notification"
+  },
+  {
+   "fieldname": "message_section",
+   "fieldtype": "Section Break",
+   "label": "Message"
+  },
+  {
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "length": 1000,
+   "reqd": 1
+  },
+  {
+   "description": "Use Insert Field to add values from the document, written as {{ field_name }}. Also available: {{ days_left }}, {{ doc_url }}, {{ rule_name }}.",
+   "fieldname": "message",
+   "fieldtype": "Long Text",
+   "label": "Message",
+   "reqd": 1
+  },
+  {
+   "fieldname": "insert_field",
+   "fieldtype": "Button",
+   "label": "Insert Field"
+  },
+  {
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "description": "When the engine next checks this rule. Upcoming shows the next actual notifications.",
+   "fieldname": "next_run",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Next Run",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_run",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Last Run",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_status",
+   "fieldtype": "Data",
+   "label": "Last Status",
+   "no_copy": 1,
+   "read_only": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-10 12:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dynamic Notification",
+ "name": "Notification Rule",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Notification Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "rule_name",
+ "track_changes": 1
+}

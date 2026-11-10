@@ -1,0 +1,98 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "recipient_type",
+  "target",
+  "role",
+  "user",
+  "department",
+  "employee_field",
+  "email_field",
+  "email_address"
+ ],
+ "fields": [
+  {
+   "columns": 3,
+   "default": "Role",
+   "fieldname": "recipient_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Send To",
+   "options": "Role\nUser\nDepartment\nDocument Owner\nAssigned Users\nDocument Employee\nDocument Field\nEmail Address",
+   "reqd": 1
+  },
+  {
+   "columns": 5,
+   "fieldname": "target",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Who",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='Role'",
+   "fieldname": "role",
+   "fieldtype": "Link",
+   "label": "Role",
+   "mandatory_depends_on": "eval:doc.recipient_type=='Role'",
+   "options": "Role"
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='User'",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "mandatory_depends_on": "eval:doc.recipient_type=='User'",
+   "options": "User"
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='Department'",
+   "description": "Active employees of this department and of the departments under it.",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "mandatory_depends_on": "eval:doc.recipient_type=='Department'",
+   "options": "Department"
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='Document Employee'",
+   "description": "The field of the document that identifies the employee.",
+   "fieldname": "employee_field",
+   "fieldtype": "Select",
+   "label": "Employee Field",
+   "mandatory_depends_on": "eval:doc.recipient_type=='Document Employee'"
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='Document Field'",
+   "fieldname": "email_field",
+   "fieldtype": "Select",
+   "label": "Field With User or Email",
+   "mandatory_depends_on": "eval:doc.recipient_type=='Document Field'"
+  },
+  {
+   "depends_on": "eval:doc.recipient_type=='Email Address'",
+   "fieldname": "email_address",
+   "fieldtype": "Data",
+   "label": "Email Address",
+   "mandatory_depends_on": "eval:doc.recipient_type=='Email Address'",
+   "options": "Email"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-05 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dynamic Notification",
+ "name": "Notification Rule Recipient",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}

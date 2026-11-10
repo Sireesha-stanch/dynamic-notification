@@ -1,0 +1,196 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 10:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "schedule_type",
+  "days",
+  "send_time",
+  "run_at",
+  "enabled",
+  "column_break_when",
+  "frequency",
+  "repeat_every",
+  "repeat_unit",
+  "recur_from",
+  "starts_on",
+  "ends_on",
+  "status_section",
+  "summary",
+  "next_run",
+  "last_run",
+  "column_break_status",
+  "last_status",
+  "last_error",
+  "processed_through"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "default": "Before Date",
+   "fieldname": "schedule_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "When",
+   "options": "Before Date\nOn Date\nAfter Date\nOne Time\nRecurring",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "depends_on": "eval:['Before Date','After Date'].includes(doc.schedule_type)",
+   "description": "How many days before or after the document's date.",
+   "fieldname": "days",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Days",
+   "mandatory_depends_on": "eval:['Before Date','After Date'].includes(doc.schedule_type)",
+   "non_negative": 1
+  },
+  {
+   "columns": 1,
+   "default": "09:00:00",
+   "depends_on": "eval:['Before Date','On Date','After Date'].includes(doc.schedule_type)||(doc.schedule_type=='Recurring'&&doc.recur_from=='Document Date')",
+   "fieldname": "send_time",
+   "fieldtype": "Time",
+   "in_list_view": 1,
+   "label": "Send At",
+   "mandatory_depends_on": "eval:['Before Date','On Date','After Date'].includes(doc.schedule_type)||(doc.schedule_type=='Recurring'&&doc.recur_from=='Document Date')"
+  },
+  {
+   "depends_on": "eval:doc.schedule_type=='One Time'",
+   "fieldname": "run_at",
+   "fieldtype": "Datetime",
+   "label": "Date and Time",
+   "mandatory_depends_on": "eval:doc.schedule_type=='One Time'"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "column_break_when",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.schedule_type=='Recurring'",
+   "fieldname": "frequency",
+   "fieldtype": "Select",
+   "label": "Repeat",
+   "mandatory_depends_on": "eval:doc.schedule_type=='Recurring'",
+   "options": "Daily\nWeekly\nMonthly\nYearly\nCustom"
+  },
+  {
+   "default": "1",
+   "depends_on": "eval:doc.schedule_type=='Recurring'&&doc.frequency=='Custom'",
+   "fieldname": "repeat_every",
+   "fieldtype": "Int",
+   "label": "Repeat Every",
+   "mandatory_depends_on": "eval:doc.schedule_type=='Recurring'&&doc.frequency=='Custom'",
+   "non_negative": 1
+  },
+  {
+   "default": "Days",
+   "depends_on": "eval:doc.schedule_type=='Recurring'&&doc.frequency=='Custom'",
+   "fieldname": "repeat_unit",
+   "fieldtype": "Select",
+   "label": "Repeat Unit",
+   "options": "Hours\nDays\nWeeks\nMonths\nYears"
+  },
+  {
+   "default": "Fixed Start Date",
+   "depends_on": "eval:doc.schedule_type=='Recurring'",
+   "description": "Fixed Start Date notifies every matching document together. Document Date repeats from each document's own date, such as a birthday every year.",
+   "fieldname": "recur_from",
+   "fieldtype": "Select",
+   "label": "Repeat From",
+   "options": "Fixed Start Date\nDocument Date"
+  },
+  {
+   "depends_on": "eval:doc.schedule_type=='Recurring'&&doc.recur_from=='Fixed Start Date'",
+   "fieldname": "starts_on",
+   "fieldtype": "Datetime",
+   "label": "Starts On",
+   "mandatory_depends_on": "eval:doc.schedule_type=='Recurring'&&doc.recur_from=='Fixed Start Date'"
+  },
+  {
+   "depends_on": "eval:doc.schedule_type=='Recurring'",
+   "fieldname": "ends_on",
+   "fieldtype": "Date",
+   "label": "Ends On"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "status_section",
+   "fieldtype": "Section Break",
+   "label": "Status"
+  },
+  {
+   "columns": 4,
+   "fieldname": "summary",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Schedule",
+   "read_only": 1
+  },
+  {
+   "columns": 2,
+   "fieldname": "next_run",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Next Run",
+   "no_copy": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "last_run",
+   "fieldtype": "Datetime",
+   "label": "Last Run",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_status",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "last_status",
+   "fieldtype": "Data",
+   "label": "Last Status",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error",
+   "fieldtype": "Small Text",
+   "label": "Last Error",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "processed_through",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Processed Through",
+   "no_copy": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-11-05 10:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Dynamic Notification",
+ "name": "Notification Schedule",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 0
+}
